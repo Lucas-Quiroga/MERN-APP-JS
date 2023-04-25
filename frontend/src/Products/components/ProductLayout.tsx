@@ -1,13 +1,13 @@
 import Header from "./Header";
 import AddButton from "./AddButton";
-import Loading from "./Loading";
+import ListProducts from "./ListProducts";
 
 const ProductLayout = () => {
   return (
     <>
       <Header title={"Hola a la app"} />
       <AddButton />
-      <Loading />
+      <ListProducts />
     </>
   );
 };
