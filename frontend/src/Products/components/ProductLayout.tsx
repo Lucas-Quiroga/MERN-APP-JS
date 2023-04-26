@@ -4,9 +4,23 @@ import Header from "./Header";
 import AddButton from "./AddButton";
 import ListProducts from "./ListProducts";
 import MyForm from "./MyForm";
+import { saveProducts } from "../services";
+
+//INTERFACE PARA EL TIPO OBJETO
+interface ProductData {
+  name: string;
+  priceUnitary: string;
+  size: string;
+  description: string;
+  image: string;
+}
 
 const ProductLayout = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSubmit = (data: ProductData) => {
+    saveProducts(data);
+  };
 
   return (
     <>
@@ -19,7 +33,7 @@ const ProductLayout = () => {
             <Modal.Card.Title>Add Product</Modal.Card.Title>
           </Modal.Card.Header>
           <Modal.Card.Body>
-            <MyForm />
+            <MyForm handleSubmit={handleSubmit} />
           </Modal.Card.Body>
         </Modal.Card>
       </Modal>

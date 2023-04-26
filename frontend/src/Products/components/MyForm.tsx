@@ -8,14 +8,16 @@ interface MyFormProps {
   priceUnitary: number;
   size: number;
   description: string;
+  image: string;
 }
 
-const MyForm = () => {
+const MyForm = ({ handleSubmit }: any) => {
   const [formValues, setFormValues] = useState<MyFormProps>({
     name: "",
     priceUnitary: 0,
     size: 0,
     description: "",
+    image: "",
   });
 
   let inputFileRef = useRef<HTMLInputElement | null>(null);
@@ -26,14 +28,15 @@ const MyForm = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSubmit = (e: any) => {
+  const _handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(formValues);
-    console.log(inputFileRef.current?.files);
+    handleSubmit({ ...formValues, image: inputFileRef.current?.files });
+    // console.log(formValues);
+    // console.log(inputFileRef.current?.files);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={_handleSubmit}>
       <Field>
         <Label>Name</Label>
         <Control>
