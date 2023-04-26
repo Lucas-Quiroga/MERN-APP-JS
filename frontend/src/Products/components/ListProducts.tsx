@@ -27,9 +27,7 @@ const ListProducts = () => {
   }
 
   if (!products.length) {
-    return (
-      <h2 className="title has-text-centered">2You don't have products</h2>
-    );
+    return <h2 className="title has-text-centered">You don't have products</h2>;
   }
 
   return <div> "Mostrar listado"</div>;
