@@ -27,7 +27,7 @@ interface ProductData {
   priceUnitary: string;
   size: string;
   description: string;
-  image: any;
+  imgUrl: string;
 }
 
 //funcion para guardar el producto con la API

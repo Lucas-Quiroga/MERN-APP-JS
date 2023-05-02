@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { Modal, Container } from "react-bulma-components";
 import Header from "./Header";
 import AddButton from "./AddButton";
@@ -13,13 +14,15 @@ interface ProductData {
   priceUnitary: string;
   size: string;
   description: string;
-  image: string;
+  imgUrl: string;
+  id: string;
+  _id: string;
 }
 
 const ProductLayout = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<ProductData[]>([]);
 
   //manera correcta de usar async await dentro de useEffect
   async function loadProducts() {
@@ -43,6 +46,22 @@ const ProductLayout = () => {
     setIsModalOpen(false);
   };
 
+  const handleDelete = async (id: string) => {
+    try {
+      await axios
+        .delete(`http://localhost:8080/products/${id}`)
+        .then(() =>
+          setProducts((prevProducts) =>
+            prevProducts.filter((p) => p._id !== id)
+          )
+        );
+
+      console.log(id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Container>
       <Header title={"Products app"} />
@@ -51,7 +70,9 @@ const ProductLayout = () => {
       {!isLoading && !products.length && (
         <h2 className="title has-text-centered">You don't have products</h2>
       )}
-      {!isLoading && products.length && <ListProducts products={products} />}
+      {!isLoading && products.length && (
+        <ListProducts products={products} handleDelete={handleDelete} />
+      )}
 
       <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <Modal.Card>

@@ -8,7 +8,7 @@ interface MyFormProps {
   priceUnitary: number;
   size: number;
   description: string;
-  image: string;
+  imgUrl: string;
 }
 
 const MyForm = ({ handleSubmit }: any) => {
@@ -17,7 +17,7 @@ const MyForm = ({ handleSubmit }: any) => {
     priceUnitary: 0,
     size: 0,
     description: "",
-    image: "",
+    imgUrl: "",
   });
 
   let inputFileRef = useRef<HTMLInputElement | null>(null);
@@ -30,7 +30,7 @@ const MyForm = ({ handleSubmit }: any) => {
 
   const _handleSubmit = (e: any) => {
     e.preventDefault();
-    handleSubmit({ ...formValues, image: inputFileRef.current?.files });
+    handleSubmit({ ...formValues, imgUrl: inputFileRef.current?.files });
     // console.log(formValues);
     // console.log(inputFileRef.current?.files);
   };
